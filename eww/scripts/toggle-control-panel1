@@ -1,0 +1,11 @@
+#!/bin/bash
+
+info="$(eww windows | grep control-panel1)";
+state="${info:0:1}";
+
+if [ "$state" == "*" ]
+then
+	eww close control-panel1
+else
+	eww open control-panel1
+fi

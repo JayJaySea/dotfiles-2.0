@@ -1,0 +1,355 @@
+$background: #1E1E2F; /* #002320; */
+$bg-light: #11111b;
+$foreground: #AFBAD8;
+$yellow: #f9e2af;
+$red: #f38ba8;
+$magenta: #b4befe;
+$blue: #89b4fa; 
+$green: #a6e3a1;
+
+
+
+* {
+	all: unset;
+	font-size: 20px;
+	font-weight: 900;
+	font-family: 'DancingScript';
+}
+
+tooltip {
+	color: $foreground;
+	background-color: $background;
+	border-radius: 2px;
+}
+
+.top-bar {
+	background-color: $background;
+}
+
+.top-bar2 {
+	background-color: $background;
+}
+
+.control-panel {
+	background-color: $background;
+	border-radius: 0px 0px 2px 2px;
+}
+
+.control-panel2 {
+	background-color: $background;
+	border-radius: 0px 0px 2px 2px;
+}
+
+.workspaces {
+	margin-left: 5px;
+}
+
+.workspace-entry {
+	padding-top: 2px;
+}
+
+.workspace-entry.active {
+	color: $background;
+	border-radius: 18px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url("/home/xxxx/.config/eww/icons/green.png");
+	background-size: 23px 22px;
+}
+
+.workspace-entry.idle {
+	color: $foreground;
+}
+
+.data {
+	color: $foreground;
+}
+
+.control-menu {
+	margin-right: 5px;
+}
+
+.cpu-usage {
+	color: $blue;
+}
+
+.mem-usage {
+	color: $magenta;
+}
+
+
+.battery-left {
+	color: $green;
+}
+
+.temperature {
+	color: $red;
+}
+
+
+button {
+  all: unset;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+button.cpu-usage-btn {
+	background-image: url("/home/xxxx/.config/eww/icons/cpu.png");
+	background-size: 15px 15px;
+}
+
+button.mem-usage-btn {
+	background-image: url("/home/xxxx/.config/eww/icons/ram.png");
+	background-size: 15px 15px;
+}
+
+button.temperature-btn {
+	background-image: url("/home/xxxx/.config/eww/icons/temp.png");
+	background-size: 7px 9px;
+}
+
+button.brightness-sun {
+	background-image: url("/home/xxxx/.config/eww/icons/brightness-sun.png");
+	background-size: 20px 20px;
+}
+
+button.brightness-high {
+	background-image: url("/home/xxxx/.config/eww/icons/brightness-high.png");
+	background-size: 20px 20px;
+}
+
+button.brightness-medium {
+	background-image: url("/home/xxxx/.config/eww/icons/brightness-medium.png");
+	background-size: 20px 20px;
+}
+
+button.brightness-low {
+	background-image: url("/home/xxxx/.config/eww/icons/brightness-low.png");
+	background-size: 20px 20px;
+}
+
+button.brightness-moon {
+	background-image: url("/home/xxxx/.config/eww/icons/brightness-moon.png");
+	background-size: 20px 20px;
+}
+
+button.wired {
+	background-image: url("/home/xxxx/.config/eww/icons/wired.png");
+	background-size: 20px 20px;
+}
+
+button.no-conn {
+	background-image: url("/home/xxxx/.config/eww/icons/no-conn.png");
+	background-size: 20px 20px;
+}
+
+button.wifi-high {
+	background-image: url("/home/xxxx/.config/eww/icons/wifi-high.png");
+	background-size: 20px 22px;
+}
+
+button.wifi-medium {
+	background-image: url("/home/xxxx/.config/eww/icons/wifi-medium.png");
+	background-size: 20px 22px;
+}
+
+button.wifi-low {
+	background-image: url("/home/xxxx/.config/eww/icons/wifi-low.png");
+	background-size: 20px 22px;
+}
+
+
+button.audio-high {
+	background-image: url("/home/xxxx/.config/eww/icons/audio-high.png");
+	background-size: 20px 20px;
+}
+
+button.audio-medium {
+	background-image: url("/home/xxxx/.config/eww/icons/audio-medium.png");
+	background-size: 20px 20px;
+}
+
+button.audio-low {
+	background-image: url("/home/xxxx/.config/eww/icons/audio-low.png");
+	background-size: 20px 20px;
+}
+
+button.audio-mute {
+	background-image: url("/home/xxxx/.config/eww/icons/audio-mute.png");
+	background-size: 20px 20px;
+}
+
+button.microphone {
+	background-image: url("/home/xxxx/.config/eww/icons/microphone.png");
+	background-size: 20px 20px;
+}
+
+button.microphone-mute {
+	background-image: url("/home/xxxx/.config/eww/icons/microphone-mute.png");
+	background-size: 20px 20px;
+}
+
+button.ac-on {
+	background-image: url("/home/xxxx/.config/eww/icons/ac.png");
+	background-size: 20px 20px;
+}
+
+button.battery-high {
+	background-image: url("/home/xxxx/.config/eww/icons/battery-high.png");
+	background-size: 18px 18px;
+}
+
+button.battery-medium {
+	background-image: url("/home/xxxx/.config/eww/icons/battery-medium.png");
+	background-size: 18px 18px;
+}
+
+button.battery-low {
+	background-image: url("/home/xxxx/.config/eww/icons/battery-low.png");
+	background-size: 18px 18px;
+}
+
+scale trough {
+	all: unset;
+	background-color: $background;
+	border-radius: 5px;
+	min-height: 10px;
+	min-width: 80px;
+	margin: 5px;
+}
+
+scale.ad-scale trough highlight {
+	background-color: $green;
+	border-radius: 5px;
+}
+
+scale.ad-scale-muted trough highlight {
+	background-color: $red;
+	border-radius: 5px;
+}
+
+scale.micro-scale trough highlight {
+	background-color: $magenta;
+	border-radius: 5px;
+}
+
+scale.micro-scale-muted trough highlight {
+	background-color: $red;
+	border-radius: 5px;
+}
+
+scale.br-scale trough highlight {
+	background-color: $yellow;
+	border-radius: 5px;
+}
+
+.control-media {
+	background: $bg-light;
+	margin: 4px;
+	margin-bottom: 2px;
+	border-radius: 2px;
+}
+
+button.audio-high-big {
+	background-image: url("/home/xxxx/.config/eww/icons/audio-high-right.png");
+	background-size: 20px 20px;
+}
+
+button.audio-medium-big {
+	background-image: url("/home/xxxx/.config/eww/icons/audio-medium-right.png");
+	background-size: 20px 20px;
+}
+
+button.audio-low-big {
+	background-image: url("/home/xxxx/.config/eww/icons/audio-low-right.png");
+	background-size: 20px 20px;
+}
+
+button.audio-mute-big {
+	background-image: url("/home/xxxx/.config/eww/icons/audio-mute-right.png");
+	background-size: 20px 20px;
+}
+
+button.brightness-sun-big {
+	background-image: url("/home/xxxx/.config/eww/icons/brightness-sun.png");
+	background-size: 20px 20px;
+}
+
+button.brightness-high-big {
+	background-image: url("/home/xxxx/.config/eww/icons/brightness-high.png");
+	background-size: 20px 20px;
+}
+
+button.brightness-medium-big {
+	background-image: url("/home/xxxx/.config/eww/icons/brightness-medium.png");
+	background-size: 20px 20px;
+}
+
+button.brightness-low-big {
+	background-image: url("/home/xxxx/.config/eww/icons/brightness-low.png");
+	background-size: 20px 20px;
+}
+
+button.brightness-moon-big {
+	background-image: url("/home/xxxx/.config/eww/icons/brightness-moon.png");
+	background-size: 20px 20px;
+}
+
+button.microphone-big {
+	background-image: url("/home/xxxx/.config/eww/icons/microphone.png");
+	background-size: 20px 20px;
+}
+
+button.microphone-big {
+	background-image: url("/home/xxxx/.config/eww/icons/microphone.png");
+	background-size: 20px 20px;
+}
+
+button.microphone-mute-big {
+	background-image: url("/home/xxxx/.config/eww/icons/microphone-mute.png");
+	background-size: 20px 20px;
+}
+
+
+.control-power {
+	margin: 4px;
+	margin-top: 2px;
+	background-color: $bg-light;
+	border-radius: 2px;
+}
+
+button.poweroff {
+	background-image: url("/home/xxxx/.config/eww/icons/shutdown.png");
+	background-size: 20px 23px;
+}
+
+
+button.lockscreen {
+	background-image: url("/home/xxxx/.config/eww/icons/lock.png");
+	background-size: 20px 20px;
+}
+
+button.logout {
+	background-image: url("/home/xxxx/.config/eww/icons/logout.png");
+	background-size: 20px 20px;
+}
+
+button.reboot {
+	background-image: url("/home/xxxx/.config/eww/icons/reboot.png");
+	background-size: 20px 20px;
+}
+
+button.audio-low-big:hover,
+button.audio-medium-big:hover,
+button.audio-high-big:hover,
+button.audio-mute-big:hover,
+button.microphone-big:hover,
+button.microphone-mute-big:hover,
+button.poweroff:hover,
+button.logout:hover,
+button.reboot:hover,
+button.lockscreen:hover {
+	background-color: $background;
+	border-radius: 2px;
+}
+

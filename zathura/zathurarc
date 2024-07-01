@@ -1,0 +1,21 @@
+set recolor true
+
+#Page padding 
+set page-padding 0
+
+#Something useful
+set window-title-basename "true"
+
+#Options
+set adjust-open "width"
+
+#Map and unmap
+
+unmap q
+map ZZ quit
+map <C-e> scroll down
+map <C-y> scroll up
+
+set selection-clipboard clipboard
+
+include catppuccin-mocha

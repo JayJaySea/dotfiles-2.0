@@ -1,0 +1,24 @@
+(deflisten all_workspaces :initial "[ 1 ]" "bash ~/.config/eww/scripts/get-workspaces")
+(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace")
+
+(defwidget workspaces []
+    (literal 
+        (eventbox 
+            :class "workspaces"
+            (box 
+                :space-evenly false
+                (for workspace in all_workspaces
+                    (eventbox 
+                        :onclick "/home/xxxx/.config/eww/scripts/change-active-workspace ${workspace}"
+                        (box 
+                            :class "workspace-entry ${workspace == current_workspace ? "active" : "idle"}"
+                            :width 25
+                            :height 30
+                            (label :text "${workspace}")
+                        )
+                    )
+                )
+            )
+        )
+    )
+)

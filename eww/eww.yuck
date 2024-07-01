@@ -1,0 +1,231 @@
+(include "./yuck/workspaces.yuck")
+(include "./yuck/audio.yuck")
+(include "./yuck/brightness.yuck")
+(include "./yuck/data.yuck")
+(include "./yuck/power.yuck")
+(include "./yuck/network.yuck")
+(include "./yuck/launcher.yuck")
+(include "./yuck/battery.yuck")
+
+(defwindow top-bar
+    :monitor 0
+    :geometry (
+        geometry 
+        :x "0%" 
+        :y "0px" 
+        :width "100%" 
+        :height "30px" 
+        :anchor "top center"
+    )
+    :reserve (struts :distance "30px" :side "top")
+    :stacking "bg"
+    :namespace "eww"
+    :focusable false
+    :exclusive false
+
+    (centerbox
+        :orientation "h" 
+        (workspaces)
+        (data)
+        (box
+            :halign "end"
+            :width 120
+            :height 25
+
+            (overlay
+                (box
+                    :space-evenly true
+                    :spacing 10
+                    (audio)
+                    (microphone)
+                    (brightness)
+                    (network)
+                    (battery)
+                )
+                (eventbox
+                    :hexpand false
+                    :onclick "sh ~/.config/eww/scripts/toggle-control-panel1"
+                ""
+                )
+            )
+        )
+    )
+)
+
+(defwindow control-panel1
+    :monitor 0
+    :geometry (
+        geometry 
+        :x "0px" 
+        :y "27px" 
+        :width "100px" 
+        :height "100px" 
+        :anchor "top right"
+    )
+    :stacking "fg"
+    :namespace "eww"
+    :focusable false
+    :exclusive false
+    (eventbox
+        :onhoverlost "sh ~/.config/eww/scripts/toggle-control-panel1"
+    (box
+        :orientation "v"
+        :space-evenly false
+        (box
+            :spacing 5
+            :space-evenly true
+            :class "control-media"
+            :orientation "v"
+
+            (audio-control)
+            (microphone-control)
+            (brightness-control)
+        )    
+        (box
+            :class "control-power"
+            (button		
+              :width 30
+              :height 30
+              :class "lockscreen" 				
+              :tooltip "Lock Screen"	 
+              :onclick "killall xinit"
+            )
+
+            (button		
+              :width 30
+              :height 30
+              :class "logout" 				
+              :tooltip "Logout" 		 
+              :onclick "hyprctl dispatch exit"
+            )
+
+            (button		
+              :width 30
+              :height 30
+              :class "reboot"					
+              :tooltip "Reboot"		 
+              :onclick "reboot"
+            )
+
+            (button		
+              :width 30
+              :height 30
+              :class "poweroff"					
+              :tooltip "Shutdown"		 
+              :onclick "poweroff"
+            )
+        )
+        )
+    )
+)
+
+(defwindow top-bar2
+    :monitor 1
+    :geometry (
+        geometry 
+        :x "0%" 
+        :y "0px" 
+        :width "100%" 
+        :height "30px" 
+        :anchor "top center"
+    )
+    :reserve (struts :distance "30px" :side "top")
+    :stacking "bg"
+    :namespace "eww"
+    :focusable false
+
+    (centerbox
+        :orientation "h" 
+        (workspaces)
+        (data)
+        (box
+            :halign "end"
+            :width 120
+            :height 25
+
+            (overlay
+                (box
+                    :space-evenly true
+                    :spacing 10
+                    (audio)
+                    (microphone)
+                    (brightness)
+                    (network)
+                    (battery)
+                )
+                (eventbox
+                    :hexpand false
+                    :onclick "sh ~/.config/eww/scripts/toggle-control-panel2"
+                ""
+                )
+            )
+        )
+    )
+)
+
+(defwindow control-panel2
+    :monitor 1
+    :geometry (
+        geometry 
+        :x "0px" 
+        :y "27px" 
+        :width "100px" 
+        :height "100px" 
+        :anchor "top right"
+    )
+    :stacking "fg"
+    :namespace "eww"
+    :focusable false
+
+    (eventbox
+        :onhoverlost "sh ~/.config/eww/scripts/toggle-control-panel2"
+    (box
+        :orientation "v"
+        :space-evenly false
+        (box
+            :spacing 5
+            :space-evenly true
+            :class "control-media"
+            :orientation "v"
+
+            (audio-control)
+            (microphone-control)
+            (brightness-control)
+        )    
+        (box
+            :class "control-power"
+            (button
+              :width 30
+              :height 30
+              :class "lockscreen"
+              :tooltip "Lock Screen"
+              :onclick "kitty -e swaylock"
+            )
+
+            (button
+              :width 30
+              :height 30
+              :class "logout"
+              :tooltip "Logout"
+              :onclick "killall xinit"
+            )
+
+            (button
+              :width 30
+              :height 30
+              :class "reboot"
+              :tooltip "Reboot"
+              :onclick "reboot"
+            )
+
+            (button
+              :width 30
+              :height 30
+              :class "poweroff"
+              :tooltip "Shutdown"
+              :onclick "poweroff"
+            )
+        )
+        )
+    )
+)

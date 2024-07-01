@@ -1,0 +1,3 @@
+#!/bin/sh
+
+sensors | grep CPU | cut -d'+' -f2 | cut -d'.' -f1

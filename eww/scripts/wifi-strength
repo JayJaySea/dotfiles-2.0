@@ -1,0 +1,3 @@
+db=$(iw dev wlp3s0 link | grep "signal" | cut -d'-' -f 2 | cut -d' ' -f 1)
+
+echo $(((-$db + 110) * 10 / 7))

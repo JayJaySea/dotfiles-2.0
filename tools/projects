@@ -1,0 +1,154 @@
+#!/bin/python3
+
+import json
+import subprocess
+from os import system
+import sys
+
+PROJECTS_DIR = "/home/xxxx/.local/share/projects/"
+PROJECTS_PATH = "/home/xxxx/.local/share/projects/projects.json"
+TEMPLATES_PATH = "/home/xxxx/.local/share/projects/templates.json"
+SCRIPTS_PATH = "/home/xxxx/.local/bin/projects/"
+EDITOR = "nvim"
+
+def main():
+    options = {
+        "new": project_new,
+        "add": project_add,
+        "open": project_open,
+        "edit": project_edit,
+        "rm": project_remove
+    }
+
+    if sys.argv[1] in options:
+        options[sys.argv[1]]()
+
+    else:
+        print("Options: " + list(options.keys()))
+
+def project_new():
+    templates = []
+    with open(TEMPLATES_PATH) as file:
+        templates = json.load(file)
+
+    names = list(template['name'] for template in templates)
+    chosen = fzf_choose(names, "Choose template")
+    
+    if not chosen:
+        return
+
+    template = templates[names.index(chosen)]
+    name = ""
+    while not name:
+        name = input("Project name: ")
+    
+    cmd = ""
+    if template['cmd']:
+        cmd = template['cmd'].replace('$name', name) 
+
+    result = project_add(name, template['path'] + '/' + name, cmd)
+    if not result:
+        return
+
+    system(SCRIPTS_PATH + template['script'] + ' ' + template['path'] + ' ' + name)
+
+
+def project_add(name=None, path=None, cmd=None):
+    while not name:
+        name = input("Project name: ")
+    if not path:
+        path = input("Project path: ")
+    if not cmd:
+        cmd = input("Command when opened: ")
+
+    projects = []
+
+    with open(PROJECTS_PATH) as file:
+        projects = json.load(file)
+
+    if name in list(project['name'] for project in projects):
+        print("Project with this name already exists!")
+        return False
+
+    projects.append({
+        "name": name,
+        "path": path,
+        "cmd": cmd
+    })
+
+    with open(PROJECTS_PATH, "w") as file:
+        projects = json.dump(projects, file, indent=4)
+
+    return True
+
+
+def project_open():
+    projects = []
+
+    with open(PROJECTS_PATH) as file:
+        projects = json.load(file)
+
+    names = list(project['name'] for project in projects)
+    chosen = rofi_choose(names, "Open project:")
+    if not chosen:
+        return
+
+    project = projects[names.index(chosen)]
+    command = ""
+    prepend = ""
+    if project['path']:
+        command += "alacritty --working-directory={path}".format(path=project['path'])
+        prepend = " -e "
+
+    if project['cmd']:
+        command += prepend + project['cmd']
+
+    system(command)
+
+def project_remove():
+    projects = []
+
+    with open(PROJECTS_PATH) as file:
+        projects = json.load(file)
+
+    names = list(project['name'] for project in projects)
+    chosen = rofi_choose(names, "Delete project :")
+    if not chosen:
+        return
+
+    projects.pop(names.index(chosen))
+
+    with open(PROJECTS_PATH, "w") as file:
+        projects = json.dump(projects, file, indent=4)
+
+def project_edit():
+    system("cd " + PROJECTS_DIR + ";" + EDITOR + " " + PROJECTS_PATH)
+
+def rofi_choose(items: list, label: str):
+    chosen = None
+    try:
+        chosen = subprocess.check_output(
+            'echo "{items}" | rofi -dmenu -i -p "{label}"'
+                .format(items="\n".join(items), label=label),
+            shell=True
+        ).decode('utf-8').strip()
+    except:
+        pass
+    
+    return chosen
+
+def fzf_choose(items: list, label: str):
+    chosen = None
+    try:
+        chosen = subprocess.check_output(
+            'echo "{items}" | fzf --prompt "{label} >"'
+                .format(items="\n".join(items), label=label),
+            shell=True
+        ).decode('utf-8').strip()
+    except:
+        pass
+    
+    return chosen
+
+if __name__ == "__main__":
+    main()

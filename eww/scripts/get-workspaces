@@ -1,0 +1,6 @@
+#!/bin/bash
+
+socket_dir="/tmp/awesome"
+mkdir $socket_dir
+
+socat -u UNIX-LISTEN:"$socket_dir/all_tags",fork -

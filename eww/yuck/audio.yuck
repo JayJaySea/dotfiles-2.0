@@ -1,0 +1,130 @@
+(defpoll ad-current 
+    :initial 0
+    :interval "250ms" 
+    `pamixer --get-volume`
+)
+
+(defpoll ad-mute 
+    :initial "no"
+    :interval "250ms"
+    `./scripts/ad_mute`
+)
+
+(defpoll micro-current
+    :initial 0
+    :interval "250ms"
+    `amixer get Capture | grep "Front Left:" | cut -d "[" -f2 | cut -d"%" -f1`
+  )
+
+(defpoll micro-state 
+    :initial "[off]"
+    :interval "250ms"
+    `amixer get Capture | grep "Front Left:" | tail -c 6`
+)
+
+
+(defwidget audio []
+    (button
+        :class {
+            ad-mute == "yes" ?
+            "audio-mute" :
+            ad-current >= 66 ?
+            "audio-high" :
+            ad-current >= 33 ?
+            "audio-medium" :
+            ad-current > 0 ?
+            "audio-low" :
+            "audio-mute"
+        }
+        :width 20
+        :height 20
+    )
+)
+
+(defwidget microphone []
+    (button
+        :class {
+            micro-state == "[off]" ?
+            "microphone-mute" :
+            "microphone" 
+        }
+        :width 20
+    )
+)
+
+
+(defwidget audio-control []
+    (box
+        :space-evenly false
+        (audio-control-btn)
+        (scale
+            :width 160
+            :height 10
+            :class {
+              ad-mute == "yes" ?
+              "ad-scale-muted" :
+              "ad-scale"
+            }
+            :value ad-current
+            :orientation "h"
+            :tooltip "Volume: ${ad-current}%" 
+            :max 101 
+            :min 0 
+            :onchange "pamixer pamixer --set-volume {}"
+        )
+    )
+)
+
+(defwidget audio-control-btn []
+        (button
+            :class {
+                ad-mute == "yes" ?
+                "audio-mute-big" :
+                ad-current >= 66 ?
+                "audio-high-big" :
+                ad-current >= 33 ?
+                "audio-medium-big" :
+                ad-current > 0 ?
+                "audio-low-big" :
+                "audio-mute-big"
+            }
+            :onclick `pamixer -t`
+            :width 40
+            :height 40
+        )
+)
+
+(defwidget microphone-control []
+    (box
+        :space-evenly false
+        (microphone-control-btn)
+        (scale
+            :width 160
+            :height 10
+            :class {
+              micro-state == "[off]" ?
+              "micro-scale-muted" :
+              "micro-scale" 
+            }
+            :value micro-current
+            :orientation "h"
+            :tooltip "Volume: ${micro-current}%" 
+            :max 101 
+            :min 0 
+            :onchange "amixer sset Capture {}%"
+        )
+    )
+)
+
+(defwidget microphone-control-btn []
+        (button
+            :onclick `amixer set Capture toggle`
+            :class {
+                micro-state == "[off]" ?
+                "microphone-mute-big" :
+                "microphone-big" 
+            }
+            :width 40
+            :height 40
+        )
+)

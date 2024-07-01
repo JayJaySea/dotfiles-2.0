@@ -1,0 +1,25 @@
+(defpoll ac
+    :initial 0
+    :interval "1s"
+    "cat /sys/class/power_supply/AC/online"
+)
+
+(defpoll capacity
+    :initial 1
+    :interval "5s" 
+    "cat /sys/class/power_supply/BAT0/capacity"
+)
+
+(defwidget battery []
+    (button
+        :class {
+            ac == 1 ?
+            "ac-on" :
+            capacity >= 77 ?
+            "battery-high" :
+            capacity >= 33 ?
+            "battery-medium" : "battery-low" 
+        }
+        :width 20
+    )
+)

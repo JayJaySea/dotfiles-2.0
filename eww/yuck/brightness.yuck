@@ -1,0 +1,56 @@
+(deflisten br-current 
+    :initial 100
+    `socat -u UNIX-CONNECT:"/tmp/informator/brightness/amdgpu_bl1" -`
+)
+
+(defvar br-update false)
+
+(defwidget brightness []
+    (button
+        :class {
+            br-current >= 80 ?
+            "brightness-sun" :
+            br-current >= 60 ?
+            "brightness-high" :
+            br-current >= 40 ?
+            "brightness-medium" :
+            br-current >= 20 ?
+            "brightness-low" : "brightness-moon" 
+        }
+        :width 20
+    )
+)
+
+(defwidget brightness-control []
+    (box
+        :space-evenly false
+        (brightness-control-btn)
+        (scale
+          :width 160
+          :height 10
+          :class "br-scale"
+          :value br-current
+          :orientation "h"
+          :max 101 
+          :min 0 
+          :onchange `brightnessctl set {}%; echo "BRIGHTNESS" > /tmp/informator/update.pipe`
+        )
+    )
+)
+
+(defwidget brightness-control-btn []
+        (button
+            :class {
+                br-current >= 80 ?
+                "brightness-sun-big" :
+                br-current >= 60 ?
+                "brightness-high-big" :
+                br-current >= 40 ?
+                "brightness-medium-big" :
+                br-current >= 20 ?
+                "brightness-low-big" : "brightness-moon-big" 
+            }
+            :width 40
+            :height 40
+        )
+)

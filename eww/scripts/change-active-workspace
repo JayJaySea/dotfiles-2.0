@@ -1,0 +1,4 @@
+#! /bin/bash
+
+awesome-client "require('awful').screen.focused().tags[$1]:view_only()"
+/home/xxxx/.config/awesome/scripts/update_tag_info "$1" 

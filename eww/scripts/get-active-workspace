@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+socket_dir="/tmp/awesome"
+mkdir $socket_dir
+
+socat -u UNIX-LISTEN:"$socket_dir/current_tag",fork -

@@ -1,0 +1,107 @@
+(defpoll cputemp
+    :initial 0
+    :interval "2s"
+    `./scripts/getcputemp`
+)
+
+(defpoll time
+    :initial ""
+    :interval "1s"
+    `date "+%H:%M"`
+)
+
+(defpoll date
+    :initial ""
+    :interval "10s"
+    `date "+%d-%m-%Y"`
+)
+
+(defwidget data []
+  (box
+    :height 20
+    :class "data"
+    :halign "center"
+    :valign "center" 
+    :space-evenly false
+    :spacing 5
+
+    (cpu-usage)
+    (mem-usage)
+    (temperature)
+    (time-date)
+  )
+)
+
+
+(defwidget cpu-usage []
+  (overlay
+    :tooltip "${round(EWW_CPU.avg, 2)} %"
+    (circular-progress
+      :class "cpu-usage"
+      :halign "center"
+      :value {EWW_CPU.avg}
+      :width 15
+      :start-at 25
+      :clockwise true
+      :thickness 2
+    )
+    (button 
+      :class "cpu-usage-btn"
+      :halign "center"
+      :valign "center" 
+      :width 9
+      :height 18
+    "")
+  )
+)
+
+(defwidget mem-usage []
+  (overlay
+    :tooltip "${round(EWW_RAM.used_mem/1000000000, 2)} GB"
+    (circular-progress
+      :class "mem-usage"
+      :value {EWW_RAM.used_mem_perc}
+      :width 15
+      :start-at 25
+      :clockwise true
+      :thickness 2
+    )
+    (button 
+      :class "mem-usage-btn"
+      :halign "center"
+      :valign "center" 
+      :width 9
+      :height 17
+    "")
+  )
+)
+
+
+(defwidget temperature []
+  (overlay
+    :tooltip "CPU: ${cputemp} °C"
+    (circular-progress
+      :class "temperature"
+      :value cputemp
+      :width 15
+      :start-at 25
+      :clockwise true
+      :thickness 2
+    )
+    (button 
+      :class "temperature-btn"
+      :halign "center"
+      :valign "center" 
+      :width 15
+      :height 5
+    "")
+  )
+)
+
+(defwidget time-date []
+  (button
+    :class "time"
+    :tooltip "${date}"
+    time
+  )
+)

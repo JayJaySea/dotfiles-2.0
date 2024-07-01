@@ -1,0 +1,47 @@
+(defpoll enp2s0f0
+    :interval "1s"
+    :initial "down"
+    `cat /sys/class/net/enp2s0f0/operstate`
+)
+
+(defpoll enp5s0
+    :interval "1s"
+    :initial "down"
+    `cat /sys/class/net/enp5s0/operstate`
+)
+
+(defpoll wifi-strength
+    :interval "1s"
+    :initial 0
+    `./scripts/wifi-strength`
+)
+
+(defpoll nt-wifi
+    :interval "1s"
+    :initial "down"
+    `cat /sys/class/net/w*/operstate`
+)
+
+(defwidget network []
+    (box
+        :height 20
+        :halign "end"
+        :valign "center" 
+        :class "control"
+        :space-evenly false
+
+        (button
+            :class {
+                enp2s0f0 == "up" || enp2s0f0 == "unknown" || enp5s0 == "up" || enp5s0 == "unknown" ?
+                "wired" :
+                nt-wifi == "down" ?
+                "no-conn" :
+                wifi-strength >= 66 ?
+                "wifi-high" :
+                wifi-strength >= 33 ?
+                "wifi-medium" : "wifi-low" 
+            }
+            :width 20
+        )
+    )
+)

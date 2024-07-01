@@ -1,0 +1,61 @@
+#Main colors:
+set notification-error-bg       "#e26963" # Red
+set notification-error-fg       "#c4b3a2" # Foreground
+set notification-warning-bg     "#daa26d" # Orange
+set notification-warning-fg     "#7fbf70" # Selection
+set notification-bg             "#011516" # Background
+set notification-fg             "#c4b3a2" # Foreground
+
+set completion-bg               "#011516" # Background
+set completion-fg               "#5a686b" # Comment
+set completion-group-bg         "#011516" # Background
+set completion-group-fg         "#5a686b" # Comment
+set completion-highlight-bg     "#7fbf70" # Selection
+set completion-highlight-fg     "#c4b3a2" # Foreground
+
+set index-bg                    "#011516" # Background
+set index-fg                    "#c4b3a2" # Foreground
+set index-active-bg             "#7fbf70" # Current Line
+set index-active-fg             "#011516" # Foreground
+
+set inputbar-bg                 "#011516" # Background
+set inputbar-fg                 "#c4b3a2" # Foreground
+set statusbar-bg                "#011516" # Background
+set statusbar-fg                "#c4b3a2" # Foreground
+
+set highlight-color             "#7fbf70" 
+set highlight-active-color      "#a283de" # Pink
+
+set default-bg                  "#011516" # Background
+set default-fg                  "#c4b3a2" # Foreground
+
+set render-loading              true
+set render-loading-fg           "#011516" # Background
+set render-loading-bg           "#c4b3a2" # Foreground
+
+#
+# Recolor mode settings
+#
+
+set recolor-lightcolor          "#011516" # Background
+set recolor-darkcolor           "#c4b3a2" # Foreground
+set recolor true
+
+#Page padding 
+set page-padding 0
+
+#Something useful
+set window-title-basename "true"
+#set selection-clipboard "clipboard"
+
+#Options
+set adjust-open "width"
+
+#Map and unmap
+
+unmap q
+map ZZ quit
+map <C-e> scroll down
+map <C-y> scroll up
+
+set selection-clipboard clipboard
